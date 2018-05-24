@@ -39,12 +39,38 @@ if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
   # enable lots of warnings
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-address")
+  # allow setting the CPU architecture
+  set(COMPILER_USE_ARCH "" CACHE STRING "Compile using specific CPU architecture")
+  if(COMPILER_USE_ARCH)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${COMPILER_USE_ARCH}")
+  endif()
+  # tell the optimizer about various pitfalls
+  set(COMMON_SAFETY
+	"-fno-strict-aliasing -fno-strict-overflow -fno-unsafe-loop-optimizations"
+	)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMMON_SAFETY}")
+  # optimizations for release builds
+  set(COMMON_OPTIMIZATIONS
+	"-fgcse-after-reload -finline-functions"
+	)
+  # some optimizations for relwithdebinfo builds
+  if("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMMON_OPTIMIZATIONS}")
+  endif()
   # additional optimizations for release builds
   if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+	set(COMPILER_OMIT_FP ON CACHE BOOL "Compile without frame pointers")
+	set(COMPILER_USE_LTO ON CACHE BOOL "Compile with link-time optimization")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMMON_OPTIMIZATIONS}")
 	# omit frame pointer
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fomit-frame-pointer")
+	if(COMPILER_OMIT_FP)
+	  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fomit-frame-pointer")
+	endif()
 	# enable link-time optimization
-	#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto")
+	if(COMPILER_USE_LTO)
+	  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto")
+	  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-fat-lto-objects")
+	endif()
   endif()
 endif()
 

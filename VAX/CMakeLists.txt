@@ -31,9 +31,12 @@ set(VAX_SOURCES
   ../PDP11/pdp11_io_lib.c
   )
 function(add_vax_simulator NAME)
+  string(TOUPPER ${NAME} NAMEU)
   add_simulator(${NAME})
-  target_include_directories(${NAME} PUBLIC ${VAX_INCLUDES})
   add_simulator_network(${NAME})
+  if(VAX_${NAMEU}_ENABLE)
+	target_include_directories(${NAME} PUBLIC ${VAX_INCLUDES})
+  endif()
 endfunction()
 
 # DEC Massbus common bits

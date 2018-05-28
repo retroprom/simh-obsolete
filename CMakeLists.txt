@@ -40,9 +40,9 @@ if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
   # enable lots of warnings
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-address")
   # allow setting the CPU architecture
-  set(COMPILER_USE_ARCH "" CACHE STRING "Compile using specific CPU architecture")
-  if(COMPILER_USE_ARCH)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${COMPILER_USE_ARCH}")
+  set(COMPILER_ARCH "" CACHE STRING "Compile using specific CPU architecture")
+  if(COMPILER_ARCH)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${COMPILER_ARCH}")
   endif()
   # tell the optimizer about various pitfalls
   set(COMMON_SAFETY

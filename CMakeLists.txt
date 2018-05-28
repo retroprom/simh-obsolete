@@ -172,7 +172,11 @@ endif()
 # Convenience function for defining simulators
 function(add_simulator NAME)
   string(TOUPPER ${NAME} NAMEU)
-  set(SIMULATOR_${NAMEU}_ENABLE ${BUILD_ALL} CACHE BOOL "Build the ${NAME} simulator")
+  if(BUILD_ALL)
+	set(SIMULATOR_${NAMEU}_ENABLE ON)
+  else()
+	set(SIMULATOR_${NAMEU}_ENABLE OFF CACHE BOOL "Build the ${NAME} simulator")
+  endif()
   if(SIMULATOR_${NAMEU}_ENABLE)
 	add_executable(${NAME} ${SIM_SOURCES} ${${NAMEU}_SOURCES})
 	target_link_libraries(${NAME} PUBLIC

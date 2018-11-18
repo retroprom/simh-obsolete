@@ -33,6 +33,7 @@ set(PDP11_SOURCES
   pdp11_rs.c
   pdp11_rx.c
   pdp11_ry.c
+  pdp11_rom.c
   pdp11_stddev.c
   pdp11_sys.c
   pdp11_ta.c

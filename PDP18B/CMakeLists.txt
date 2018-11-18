@@ -2,6 +2,7 @@
 # DEC 18-bit common bits
 set(PDP18B_SOURCES
   pdp18b_cpu.c
+  pdp18b_dr15.c
   pdp18b_drm.c
   pdp18b_dt.c
   pdp18b_fpp.c

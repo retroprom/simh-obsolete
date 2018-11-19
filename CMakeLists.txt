@@ -11,6 +11,7 @@ set(BUILD_ALL ON CACHE BOOL "Build all simulators")
 set(ENABLE_ASYNC ON CACHE BOOL "Enable asynchronous I/O support")
 set(ENABLE_GRAPHICS ON CACHE BOOL "Enable graphics support")
 set(ENABLE_NETWORK ON CACHE BOOL "Enable network support")
+set(EXECUTABLE_PREFIX "" CACHE STRING "Prefix for simulator executables")
 
 # Find system libraries
 find_library(LIBM_LIBRARIES m)
@@ -190,6 +191,9 @@ function(add_simulator NAME)
 	  ${CMAKE_SOURCE_DIR}
 	  ${CMAKE_CURRENT_SOURCE_DIR}
 	  )
+    set_target_properties(${NAME} PROPERTIES
+      OUTPUT_NAME ${EXECUTABLE_PREFIX}${NAME}
+      )
 	install(TARGETS ${NAME}
 	  RUNTIME DESTINATION bin
 	  )

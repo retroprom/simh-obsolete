@@ -86,9 +86,6 @@ set(VAX610_SOURCES
   )
 add_vax_simulator(vax610)
 add_simulator_graphics(vax610)
-if(SIMULATOR_VAX610_GRAPHICS)
-  target_compile_definitions(vax610 PUBLIC USE_SIM_VIDEO)
-endif()
 
 # DEC VAX630 - MicroVAX II
 set(VAX630_DEFINITIONS
@@ -104,9 +101,6 @@ set(VAX630_SOURCES
   )
 add_vax_simulator(vax630)
 add_simulator_graphics(vax630)
-if(SIMULATOR_VAX630_GRAPHICS)
-  target_compile_definitions(vax630 PUBLIC USE_SIM_VIDEO)
-endif()
 
 # DEC VAX620 - rtVAX 1000
 set(VAX620_DEFINITIONS
@@ -132,9 +126,6 @@ set(VAX650_SOURCES
   )
 add_vax_simulator(vax650)
 add_simulator_graphics(vax650)
-if(SIMULATOR_VAX650_GRAPHICS)
-  target_compile_definitions(vax650 PUBLIC USE_SIM_VIDEO)
-endif()
 
 # DEC VAX7XX - Unibus VAXen
 set(VAX7XX_SOURCES

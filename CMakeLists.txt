@@ -137,9 +137,6 @@ endif()
 
 # Graphics support
 if(ENABLE_GRAPHICS)
-  set(GRAPHICS_DISPLAY_DEFINITIONS
-	USE_DISPLAY
-	)
   set(GRAPHICS_DISPLAY_SOURCES
 	${CMAKE_SOURCE_DIR}/display/display.c
 	${CMAKE_SOURCE_DIR}/display/sim_ws.c
@@ -208,6 +205,7 @@ function(add_simulator_graphics NAME)
 	  set(SIMULATOR_${NAMEU}_GRAPHICS ON CACHE BOOL "Enable ${NAME} graphics support")
 	  if(${SIMULATOR_${NAMEU}_GRAPHICS})
 		target_link_libraries(${NAME} PUBLIC ${GRAPHICS_LIBRARIES})
+		target_compile_definitions(${NAME} PUBLIC USE_SIM_VIDEO)
 		target_compile_definitions(${NAME} PUBLIC ${GRAPHICS_DEFINITIONS})
 		target_include_directories(${NAME} PUBLIC ${GRAPHICS_INCLUDES})
 	  endif()

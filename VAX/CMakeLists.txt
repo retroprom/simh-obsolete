@@ -53,6 +53,7 @@ set(VAX_QBUS_SOURCES
 
 # DEC Unibus common bits
 set(VAX_UNIBUS_SOURCES
+  ../PDP11/pdp11_ch.c
   ../PDP11/pdp11_xu.c
   ../PDP11/pdp11_ry.c
   ../PDP11/pdp11_hk.c

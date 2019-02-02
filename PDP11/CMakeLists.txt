@@ -4,6 +4,7 @@ set(PDP11_DEFINITIONS
   VM_PDP11
   )
 set(PDP11_SOURCES
+  pdp11_ch.c
   pdp11_cis.c
   pdp11_cpu.c
   pdp11_cpumod.c

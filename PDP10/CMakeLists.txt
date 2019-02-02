@@ -20,6 +20,7 @@ set(PDP10_SOURCES
   pdp10_tim.c
   pdp10_tu.c
   pdp10_xtnd.c
+  ../PDP11/pdp11_ch.c
   ../PDP11/pdp11_dz.c
   ../PDP11/pdp11_pt.c
   ../PDP11/pdp11_ry.c

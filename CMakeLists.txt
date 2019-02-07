@@ -36,6 +36,13 @@ endif()
 
 # GNU toolchain
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+  set(COMPILER_IS_GNU ON)
+  set(COMPILER_IS_GNU_LIKE ON)
+endif()
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+  set(COMPILER_IS_GNU_LIKE ON)
+endif()
+if(COMPILER_IS_GNU_LIKE)
   # should be C90, but code uses to many C++ comments...
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
   # enable lots of warnings
@@ -47,18 +54,23 @@ if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
   endif()
   # tell the optimizer about various pitfalls
   set(COMMON_SAFETY
-	"-fno-strict-aliasing -fno-strict-overflow -fno-unsafe-loop-optimizations"
-	)
+	"-fno-strict-aliasing -fno-strict-overflow")
+  if(COMPILER_IS_GNU)
+    set(COMMON_SAFETY "${COMMON_SAFETY} -fno-unsafe-loop-optimizations")
+  endif()
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMMON_SAFETY}")
   # optimizations for release builds
-  set(COMMON_OPTIMIZATIONS
-	"-fgcse-after-reload -finline-functions"
-	)
+  set(COMMON_OPTIMIZATIONS "-finline-functions")
+  if(COMPILER_IS_GNU)
+    set(COMMON_OPTIMIZATIONS "${COMMON_OPTIMIZATIONS} -fgcse-after-reload")
+  endif()
   # allow use of link-time optimization
   set(COMPILER_USE_LTO ON CACHE BOOL "Compile with link-time optimization")
   if(COMPILER_USE_LTO)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-fat-lto-objects")
+	if(COMPILER_IS_GNU)
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-fat-lto-objects")
+	endif()
   endif()
   # some additions for relwithdebinfo builds
   if("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo")

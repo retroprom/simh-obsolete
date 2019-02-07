@@ -9,8 +9,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/BIN)
 # Global options
 set(BUILD_ALL ON CACHE BOOL "Build all simulators")
 set(ENABLE_ASYNC ON CACHE BOOL "Enable asynchronous I/O support")
-set(ENABLE_GRAPHICS ON CACHE BOOL "Enable graphics support")
-set(ENABLE_NETWORK ON CACHE BOOL "Enable network support")
+set(ENABLE_GRAPHICS OFF CACHE BOOL "Enable graphics support")
+set(ENABLE_NETWORK OFF CACHE BOOL "Enable network support")
 set(EXECUTABLE_PREFIX "simh-" CACHE STRING "Prefix for simulator executables")
 
 # Find system libraries

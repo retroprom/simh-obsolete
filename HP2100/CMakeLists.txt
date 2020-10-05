@@ -14,6 +14,8 @@ set(HP2100_SOURCES
   hp2100_cpu6.c
   hp2100_cpu7.c
   hp2100_cpu.c
+  hp2100_cpu_fp.c
+  hp2100_cpu_fpp.c
   hp2100_di.c
   hp2100_di_da.c
   hp2100_disclib.c
@@ -21,8 +23,6 @@ set(HP2100_SOURCES
   hp2100_dq.c
   hp2100_dr.c
   hp2100_ds.c
-  hp2100_fp1.c
-  hp2100_fp.c
   hp2100_ipl.c
   hp2100_lps.c
   hp2100_lpt.c
@@ -31,7 +31,6 @@ set(HP2100_SOURCES
   hp2100_mt.c
   hp2100_mux.c
   hp2100_pif.c
-  hp2100_stddev.c
   hp2100_sys.c
   )
 add_simulator(hp2100)

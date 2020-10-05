@@ -231,7 +231,6 @@ set(IS1000_SOURCES
   is1000_syslist.c
   )
 add_vax_simulator(is1000)
-add_simulator_graphics(is1000)
 
 # VAX6XX - Common definitions
 set(VAX6XX_SOURCES

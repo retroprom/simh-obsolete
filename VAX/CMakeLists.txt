@@ -19,22 +19,13 @@ set(VAX_SOURCES
   vax_sys.c
   vax_syscm.c
   vax_watch.c
-  ../PDP11/pdp11_rl.c
-  ../PDP11/pdp11_rq.c
-  ../PDP11/pdp11_ts.c
-  ../PDP11/pdp11_dz.c
-  ../PDP11/pdp11_lp.c
-  ../PDP11/pdp11_tq.c
-  ../PDP11/pdp11_td.c
-  ../PDP11/pdp11_cr.c
-  ../PDP11/pdp11_vh.c
-  ../PDP11/pdp11_io_lib.c
   )
 function(add_vax_simulator NAME)
   string(TOUPPER ${NAME} NAMEU)
   add_simulator(${NAME})
   add_simulator_network(${NAME})
   if(BUILD_ALL OR SIMULATOR_${NAMEU}_ENABLE)
+    target_compile_definitions(${NAME} PUBLIC ${VAX_DEFINITIONS})
     target_include_directories(${NAME} PUBLIC ${VAX_INCLUDES})
   endif()
 endfunction()
@@ -46,13 +37,29 @@ set(VAX_MASSBUS_SOURCES
   ../PDP11/pdp11_tu.c
   )
 
+# Common bits for bus-based machines
+set(VAX_BUS_SOURCES
+  ../PDP11/pdp11_rl.c
+  ../PDP11/pdp11_rq.c
+  ../PDP11/pdp11_ts.c
+  ../PDP11/pdp11_dz.c
+  ../PDP11/pdp11_lp.c
+  ../PDP11/pdp11_tq.c
+  ../PDP11/pdp11_td.c
+  ../PDP11/pdp11_cr.c
+  ../PDP11/pdp11_vh.c
+  ../PDP11/pdp11_io_lib.c
+  )
+
 # DEC Q-bus common bits
 set(VAX_QBUS_SOURCES
+  ${VAX_BUS_SOURCES}
   ../PDP11/pdp11_xq.c
   )
 
 # DEC Unibus common bits
 set(VAX_UNIBUS_SOURCES
+  ${VAX_BUS_SOURCES}
   ../PDP11/pdp11_ch.c
   ../PDP11/pdp11_xu.c
   ../PDP11/pdp11_ry.c
@@ -62,7 +69,171 @@ set(VAX_UNIBUS_SOURCES
   ../PDP11/pdp11_rk.c
   )
 
-# DEC VAX6XX Q-bus common bits
+# Common definitions for VAX4XX variants
+set(VAX4XX_SOURCES
+  ../sim_scsi.c
+  ${VAX_SOURCES}
+  vax_lk.c
+  vax_nar.c
+  vax_vs.c
+  vax_xs.c
+  vax4xx_dz.c
+  vax4xx_stddev.c
+  )
+
+# VAX410 - 
+set(VAX410_DEFINITIONS
+  VAX_410
+  )
+set(VAX410_SOURCES
+  ${VAX4XX_SOURCES}
+  vax_gpx.c
+  vax4xx_rd.c
+  vax4xx_rz80.c
+  vax4xx_va.c
+  vax4xx_vc.c
+  vax410_sysdev.c
+  vax410_syslist.c
+  )
+add_vax_simulator(vax410)
+add_simulator_graphics(vax410)
+
+# Common definitions for VAX420 variants
+set(VAX420_DEFINITIONS
+  VAX_420
+  )
+set(VAX420_SOURCES
+  ${VAX4XX_SOURCES}
+  vax_gpx.c
+  vax4xx_rd.c
+  vax4xx_rz80.c
+  vax4xx_va.c
+  vax4xx_vc.c
+  vax4xx_ve.c
+  vax420_sysdev.c
+  vax420_syslist.c
+  )
+
+# VAX411 - 
+set(VAX411_DEFINITIONS
+  ${VAX420_DEFINITIONS}
+  VAX_411
+  )
+set(VAX411_SOURCES
+  ${VAX420_SOURCES}
+  )
+add_vax_simulator(vax411)
+add_simulator_graphics(vax411)
+
+# VAX412 - 
+set(VAX412_DEFINITIONS
+  ${VAX420_DEFINITIONS}
+  VAX_412
+  )
+set(VAX412_SOURCES
+  ${VAX420_SOURCES}
+  )
+add_vax_simulator(vax412)
+add_simulator_graphics(vax412)
+
+set(VAX41A_DEFINITIONS
+  ${VAX420_DEFINITIONS}
+  VAX_41A
+  )
+set(VAX41A_SOURCES
+  ${VAX420_SOURCES}
+  )
+add_vax_simulator(vax41a)
+add_simulator_graphics(vax41a)
+
+set(VAX41D_DEFINITIONS
+  ${VAX420_DEFINITIONS}
+  VAX_41D
+  )
+set(VAX41D_SOURCES
+  ${VAX420_SOURCES}
+  )
+add_vax_simulator(vax41d)
+add_simulator_graphics(vax41d)
+
+set(VAX42A_DEFINITIONS
+  ${VAX420_DEFINITIONS}
+  VAX_42A
+  )
+set(VAX42A_SOURCES
+  ${VAX420_SOURCES}
+  )
+add_vax_simulator(vax42a)
+add_simulator_graphics(vax42a)
+
+set(VAX42B_DEFINITIONS
+  ${VAX420_DEFINITIONS}
+  VAX_42B
+  )
+set(VAX42B_SOURCES
+  ${VAX420_SOURCES}
+  )
+add_vax_simulator(vax42b)
+add_simulator_graphics(vax42b)
+
+set(VAX440_DEFINITIONS
+  VAX_440
+  )
+set(VAX440_SOURCES
+  ${VAX4XX_SOURCES}
+  vax4xx_rz94.c
+  vax440_sysdev.c
+  vax440_syslist.c
+  )
+
+set(VAX46_DEFINITIONS
+  ${VAX440_DEFINITIONS}
+  VAX_46
+  )
+set(VAX46_SOURCES
+  ${VAX440_SOURCES}
+  )
+add_vax_simulator(vax46)
+add_simulator_graphics(vax46)
+
+set(VAX47_DEFINITIONS
+  ${VAX440_DEFINITIONS}
+  VAX_47
+  )
+set(VAX47_SOURCES
+  ${VAX440_SOURCES}
+  )
+add_vax_simulator(vax47)
+add_simulator_graphics(vax47)
+
+set(VAX48_DEFINITIONS
+  ${VAX440_DEFINITIONS}
+  VAX_48
+  )
+set(VAX48_SOURCES
+  ${VAX440_SOURCES}
+  )
+add_vax_simulator(vax48)
+add_simulator_graphics(vax48)
+
+set(IS1000_DEFINITIONS
+  ${VAX_DEFINITIONS}
+  IS_1000
+  )
+set(IS1000_SOURCES
+  ../sim_scsi.c
+  ${VAX_SOURCES}
+  vax_nar.c
+  vax_xs.c
+  vax4xx_rz94.c
+  vax4nn_stddev.c
+  is1000_sysdev.c
+  is1000_syslist.c
+  )
+add_vax_simulator(is1000)
+add_simulator_graphics(is1000)
+
+# VAX6XX - Common definitions
 set(VAX6XX_SOURCES
   ${VAX_SOURCES}
   ${VAX_QBUS_SOURCES}
@@ -72,9 +243,8 @@ set(VAX6XX_SOURCES
   vax_vs.c
   )
 
-# DEC VAX610 - MicroVAX I
+# VAX610 - DEC MicroVAX I
 set(VAX610_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_610
   )
 set(VAX610_SOURCES
@@ -88,13 +258,14 @@ set(VAX610_SOURCES
 add_vax_simulator(vax610)
 add_simulator_graphics(vax610)
 
-# DEC VAX630 - MicroVAX II
+# VAX630 - DEC MicroVAX II
 set(VAX630_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_630
   )
 set(VAX630_SOURCES
   ${VAX6XX_SOURCES}
+  vax_gpx.c
+  vax_va.c
   vax630_io.c
   vax630_stddev.c
   vax630_sysdev.c
@@ -103,19 +274,21 @@ set(VAX630_SOURCES
 add_vax_simulator(vax630)
 add_simulator_graphics(vax630)
 
-# DEC VAX620 - rtVAX 1000
+# VAX620 - DEC rtVAX 1000
 set(VAX620_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_620
   )
 set(VAX620_SOURCES
-  ${VAX630_SOURCES}
+  ${VAX6XX_SOURCES}
+  vax630_io.c
+  vax630_stddev.c
+  vax630_sysdev.c
+  vax630_syslist.c
   )
 add_vax_simulator(vax620)
 
 # DEC VAX650 - MicroVAX III
 set(VAX650_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_650
   )
 set(VAX650_SOURCES
@@ -134,9 +307,8 @@ set(VAX7XX_SOURCES
   ${VAX_UNIBUS_SOURCES}
   )
 
-# DEC VAX730 - VAX 11/730
+# VAX730 - DEC VAX 11/730
 set(VAX730_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_730
   )
 set(VAX730_SOURCES
@@ -150,9 +322,8 @@ set(VAX730_SOURCES
   )
 add_vax_simulator(vax730)
 
-# DEC VAX750 - VAX 11/750
+# VAX750 - DEC VAX 11/750
 set(VAX750_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_750
   )
 set(VAX750_SOURCES
@@ -166,9 +337,8 @@ set(VAX750_SOURCES
   )
 add_vax_simulator(vax750)
 
-# DEC VAX780 - VAX 11/780
+# VAX780 - DEC VAX 11/780
 set(VAX780_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_780
   )
 set(VAX780_SOURCES
@@ -183,9 +353,23 @@ set(VAX780_SOURCES
   )
 add_vax_simulator(vax780)
 
-# DEC VAX860 - VAX 8600
+# VAX820 - DEC VAX 8200
+set(VAX820_DEFINITIONS
+  VAX_820
+  )
+set(VAX820_SOURCES
+  ${VAX7XX_SOURCES}
+  vax820_bi.c
+  vax820_ka.c
+  vax820_mem.c
+  vax820_uba.c
+  vax820_stddev.c
+  vax820_syslist.c
+  )
+add_vax_simulator(vax820)
+
+# VAX860 - DEC VAX 8600
 set(VAX860_DEFINITIONS
-  ${VAX_DEFINITIONS}
   VAX_860
   )
 set(VAX860_SOURCES
@@ -198,3 +382,4 @@ set(VAX860_SOURCES
   vax860_syslist.c
   )
 add_vax_simulator(vax860)
+

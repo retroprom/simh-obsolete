@@ -1,4 +1,7 @@
 .git-commit-id
+#ignored CMake files
+CMakeCache.txt
+CMakeFiles
 #ignore thumbnails created by windows
 Thumbs.db
 #ignore Desktop Services Store created by OSX

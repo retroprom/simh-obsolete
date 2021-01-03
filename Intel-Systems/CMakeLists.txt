@@ -1,5 +1,5 @@
 
-add_subdirectory(ibmpc)
+#add_subdirectory(ibmpc)
 add_subdirectory(ibmpcxt)
 add_subdirectory(imds-225)
 add_subdirectory(isys8010)

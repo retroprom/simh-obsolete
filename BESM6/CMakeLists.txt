@@ -1,6 +1,7 @@
 
 # XXX
 set(BESM6_SOURCES
+  ../sim_card.c
   besm6_arith.c
   besm6_cpu.c
   besm6_disk.c
@@ -12,5 +13,8 @@ set(BESM6_SOURCES
   besm6_punchcard.c
   besm6_sys.c
   besm6_tty.c
+  )
+set(BESM6_DEFINITIONS
+  USE_SIM_CARD
   )
 add_simulator(besm6)

@@ -14,6 +14,7 @@ set(IMDS225_SOURCES
   ../common/iram8.c
   ../common/isbc201.c
   ../common/isbc202.c
+  ../common/isbc206.c
   ../common/zx200a.c
   imds-225_sys.c
   )

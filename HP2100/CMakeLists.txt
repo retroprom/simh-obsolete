@@ -19,6 +19,7 @@ set(HP2100_SOURCES
   hp2100_di.c
   hp2100_di_da.c
   hp2100_disclib.c
+  hp2100_dma.c
   hp2100_dp.c
   hp2100_dq.c
   hp2100_dr.c
@@ -26,11 +27,16 @@ set(HP2100_SOURCES
   hp2100_ipl.c
   hp2100_lps.c
   hp2100_lpt.c
+  hp2100_mc.c
+  hp2100_mem.c
   hp2100_mpx.c
   hp2100_ms.c
   hp2100_mt.c
   hp2100_mux.c
   hp2100_pif.c
+  hp2100_pt.c
   hp2100_sys.c
+  hp2100_tbg.c
+  hp2100_tty.c
   )
 add_simulator(hp2100)

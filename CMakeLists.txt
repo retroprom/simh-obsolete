@@ -6,11 +6,13 @@ project(simh)
 # Do not pollute source directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/BIN)
 
-# Global options
-set(BUILD_ALL ON CACHE BOOL "Build all simulators")
+# Options for initial configuration only
+set(BUILD_ALL OFF CACHE BOOL "Initial default: build all simulators")
+
+# Normal options that can be changed
 set(ENABLE_ASYNC ON CACHE BOOL "Enable asynchronous I/O support")
-set(ENABLE_GRAPHICS OFF CACHE BOOL "Enable graphics support")
-set(ENABLE_NETWORK OFF CACHE BOOL "Enable network support")
+set(ENABLE_GRAPHICS OFF CACHE BOOL "Initial default: enable graphics support")
+set(ENABLE_NETWORK OFF CACHE BOOL "Initial default: enable network support")
 set(EXECUTABLE_PREFIX "simh-" CACHE STRING "Prefix for simulator executables")
 
 # Find system libraries
@@ -184,11 +186,7 @@ endif()
 # Convenience function for defining simulators
 function(add_simulator NAME)
   string(TOUPPER ${NAME} NAMEU)
-  if(BUILD_ALL)
-	set(SIMULATOR_${NAMEU}_ENABLE ON  CACHE BOOL "Build the ${NAME} simulator")
-  else()
-	set(SIMULATOR_${NAMEU}_ENABLE OFF CACHE BOOL "Build the ${NAME} simulator")
-  endif()
+  set(SIMULATOR_${NAMEU}_ENABLE ${BUILD_ALL} CACHE BOOL "Build the ${NAME} simulator")
   if(BUILD_ALL OR SIMULATOR_${NAMEU}_ENABLE)
 	add_executable(${NAME} ${SIM_SOURCES} ${${NAMEU}_SOURCES})
 	target_link_libraries(${NAME} PUBLIC

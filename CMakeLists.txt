@@ -11,8 +11,8 @@ set(BUILD_ALL OFF CACHE BOOL "Initial default: build all simulators")
 
 # Normal options that can be changed
 set(ENABLE_ASYNC ON CACHE BOOL "Enable asynchronous I/O support")
-set(ENABLE_GRAPHICS OFF CACHE BOOL "Initial default: enable graphics support")
-set(ENABLE_NETWORK OFF CACHE BOOL "Initial default: enable network support")
+set(ENABLE_GRAPHICS ON CACHE BOOL "Initial default: enable graphics support")
+set(ENABLE_NETWORK ON CACHE BOOL "Initial default: enable network support")
 set(EXECUTABLE_PREFIX "simh-" CACHE STRING "Prefix for simulator executables")
 
 # Find system libraries
@@ -67,7 +67,7 @@ if(COMPILER_IS_GNU_LIKE)
     set(COMMON_OPTIMIZATIONS "${COMMON_OPTIMIZATIONS} -fgcse-after-reload")
   endif()
   # allow use of link-time optimization
-  set(COMPILER_USE_LTO ON CACHE BOOL "Compile with link-time optimization")
+  set(COMPILER_USE_LTO OFF CACHE BOOL "Compile with link-time optimization")
   if(COMPILER_USE_LTO)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto")
 	if(COMPILER_IS_GNU)

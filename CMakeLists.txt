@@ -258,7 +258,7 @@ endfunction()
 # Advanced Computer Design
 add_subdirectory(PDQ-3)
 # AT&T
-add_subdirectory(3B2)
+#add_subdirectory(3B2)
 # Burroughs Corporation
 add_subdirectory(B5500)
 # Control Data Corporation (CDC)
@@ -281,7 +281,7 @@ add_subdirectory(HP3000)
 # Honeywell
 add_subdirectory(H316)
 # Intel-based computers
-add_subdirectory(Intel-Systems)
+#add_subdirectory(Intel-Systems)
 # Interdata / Perkin-Elmer
 add_subdirectory(Interdata)
 # International Business Machines (IBM)

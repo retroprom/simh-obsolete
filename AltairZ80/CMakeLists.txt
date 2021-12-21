@@ -35,6 +35,7 @@ set(ALTAIRZ80_SOURCES
   s100_disk1a.c
   s100_disk2.c
   s100_disk3.c
+  s100_dj2d.c
   s100_fif.c
   s100_hayes.c
   s100_hdc1001.c
